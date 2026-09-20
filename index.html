@@ -123,40 +123,6 @@ a{color:inherit;}
 .screen{ position:relative; z-index:1; }
 .hidden{ display:none !important; }
 
-/* ---------- name entry ---------- */
-#screen-entry{
-  min-height:100dvh; display:flex; align-items:center; justify-content:center; padding:32px 20px;
-}
-.entry-card{ width:100%; max-width:420px; padding:36px 28px; text-align:center; }
-.entry-badge{
-  width:64px; height:64px; margin:0 auto 18px; border-radius:20px;
-  display:flex; align-items:center; justify-content:center; font-size:1.6rem;
-  background:linear-gradient(135deg,var(--pink),var(--violet)); box-shadow:0 8px 24px rgba(139,107,255,.35);
-}
-.entry-card h1{ font-size:1.5rem; margin:0 0 8px; }
-.entry-card p.tagline{ color:var(--ink-1); font-size:.95rem; margin:0 0 24px; line-height:1.5; }
-.field{ text-align:left; margin-bottom:8px; }
-.field label{ display:block; font-size:.82rem; color:var(--ink-1); margin-bottom:6px; font-weight:500; }
-.field input{
-  width:100%; padding:14px 16px; border-radius:14px; border:1px solid var(--glass-border);
-  background:rgba(255,255,255,.05); color:var(--ink-0); font-size:1rem; font-family:inherit;
-  transition:border-color .2s ease, background .2s ease;
-}
-.field input:focus{ border-color:var(--lime); background:rgba(255,255,255,.08); outline:none; }
-.field-error{ min-height:20px; color:var(--pink); font-size:.8rem; text-align:left; margin:6px 2px 14px; }
-#entry-form .btn{ width:100%; margin-top:4px; padding:1em; font-size:1rem; }
-
-/* ---------- welcome screen ---------- */
-#screen-welcome{
-  min-height:100dvh; display:flex; align-items:center; justify-content:center; padding:32px 20px;
-}
-.welcome-card{ width:100%; max-width:440px; padding:44px 28px; text-align:center; opacity:0; transform:translateY(16px) scale(.97); transition:opacity .6s ease, transform .6s ease; }
-.welcome-card.show{ opacity:1; transform:translateY(0) scale(1); }
-.welcome-emoji{ font-size:2.6rem; margin-bottom:10px; display:block; }
-.welcome-card h2{ font-size:1.5rem; line-height:1.4; margin:0 0 10px; }
-.welcome-card h2 .name-hl{ color:var(--lime); }
-.welcome-card p{ color:var(--ink-1); font-size:.95rem; margin:0 0 26px; }
-
 /* ---------- nav ---------- */
 #app-nav{
   position:sticky; top:calc(10px + var(--safe-t)); z-index:20;
@@ -260,24 +226,6 @@ footer p{ color:var(--ink-2); font-size:.78rem; margin:4px 0; }
   cursor:pointer; margin-top:10px; padding:6px;
 }
 
-/* ---------- confirm modal ---------- */
-.modal-overlay{
-  position:fixed; inset:0; background:rgba(6,7,16,.6); backdrop-filter:blur(4px);
-  display:flex; align-items:center; justify-content:center; z-index:100; padding:24px;
-  opacity:0; pointer-events:none; transition:opacity .25s ease;
-}
-.modal-overlay.show{ opacity:1; pointer-events:auto; }
-.modal-card{
-  width:100%; max-width:340px; padding:26px 22px; text-align:center;
-  transform:scale(.92); transition:transform .25s ease;
-}
-.modal-overlay.show .modal-card{ transform:scale(1); }
-.modal-card i.modal-icon{ font-size:1.8rem; color:var(--pink); margin-bottom:10px; }
-.modal-card h3{ margin:0 0 8px; font-size:1.1rem; }
-.modal-card p{ color:var(--ink-1); font-size:.86rem; margin:0 0 20px; }
-.modal-actions{ display:flex; gap:10px; }
-.modal-actions .btn{ flex:1; padding:.8em; font-size:.88rem; }
-
 /* ---------- toast ---------- */
 #toast{
   position:fixed; left:50%; bottom:calc(96px + var(--safe-b)); transform:translateX(-50%) translateY(20px);
@@ -301,43 +249,8 @@ footer p{ color:var(--ink-2); font-size:.78rem; margin:4px 0; }
   <div class="particles" id="particles"></div>
 </div>
 
-<!-- ============ SCREEN 1: NAME ENTRY ============ -->
-<section id="screen-entry" class="screen">
-  <div class="wrap" style="padding:0;">
-    <div class="entry-card glass">
-      <div class="entry-badge" aria-hidden="true"><i class="fa-solid fa-face-laugh-squint"></i></div>
-      <h1>গাজার গ্যাং-এ স্বাগতম</h1>
-      <p class="tagline">এখানে মজা, প্র্যাঙ্ক আর হাসি ছাড়া কিছুই নেই। শুরু করার আগে বলো তো, তোমার নাম কী?</p>
-      <form id="entry-form" novalidate>
-        <div class="field">
-          <label for="name-input">তোমার নাম</label>
-          <input type="text" id="name-input" name="name" autocomplete="given-name" placeholder="যেমন: রনি" aria-describedby="name-error" maxlength="30">
-        </div>
-        <p class="field-error" id="name-error" role="alert"></p>
-        <button type="submit" class="btn primary ripple">
-          <i class="fa-solid fa-arrow-right-long"></i> শুরু করি
-        </button>
-      </form>
-    </div>
-  </div>
-</section>
-
-<!-- ============ SCREEN 2: PERSONALIZED WELCOME ============ -->
-<section id="screen-welcome" class="screen hidden">
-  <div class="wrap" style="padding:0;">
-    <div class="welcome-card glass" id="welcome-card">
-      <span class="welcome-emoji" aria-hidden="true">🎉</span>
-      <h2>স্বাগতম, <span class="name-hl" id="welcome-name">বন্ধু</span>!</h2>
-      <p>গাজার গ্যাং-এ তোমাকে পেয়ে আমরা মহাখুশি। নিচে স্ক্রল করলেই শুরু হবে আসল মজা।</p>
-      <button class="btn primary ripple" id="welcome-continue">
-        <i class="fa-solid fa-rocket"></i> হোমে যাই
-      </button>
-    </div>
-  </div>
-</section>
-
 <!-- ============ MAIN APP ============ -->
-<div id="app-main" class="screen hidden">
+<div id="app-main" class="screen">
 
   <nav id="app-nav" class="glass" aria-label="প্রধান নেভিগেশন">
     <button data-target="home" class="active" aria-current="page">
@@ -413,21 +326,7 @@ footer p{ color:var(--ink-2); font-size:.78rem; margin:4px 0; }
   <footer>
     <div class="foot-logo">গাজার গ্যাং</div>
     <p>শুধু মজার জন্য বানানো — কাউকে আঘাত করার জন্য নয়।</p>
-    <button id="reset-link">নাম রিসেট করো</button>
   </footer>
-</div>
-
-<!-- CONFIRM MODAL -->
-<div class="modal-overlay" id="confirm-modal" role="dialog" aria-modal="true" aria-labelledby="confirm-title">
-  <div class="modal-card glass">
-    <i class="fa-solid fa-triangle-exclamation modal-icon" aria-hidden="true"></i>
-    <h3 id="confirm-title">নাম রিসেট করবে?</h3>
-    <p>তোমার সেভ করা নাম মুছে যাবে এবং আবার নতুন করে লিখতে হবে।</p>
-    <div class="modal-actions">
-      <button class="btn ghost ripple" id="confirm-cancel">না থাক</button>
-      <button class="btn primary ripple" id="confirm-ok">হ্যাঁ, রিসেট করো</button>
-    </div>
-  </div>
 </div>
 
 <div id="toast" class="glass" role="status" aria-live="polite"></div>
@@ -444,31 +343,6 @@ footer p{ color:var(--ink-2); font-size:.78rem; margin:4px 0; }
     src: "https://raw.githubusercontent.com/RX-NAFIJ/sdhack/main/pranksound.mp3",
     volume: 1
   };
-
-  var STORAGE_KEY = "gazar_gang_name";
-
-  /* =========================================================
-     Safe localStorage helpers
-  ========================================================= */
-  var storageOK = (function(){
-    try{
-      var k = "__test__"; localStorage.setItem(k,"1"); localStorage.removeItem(k);
-      return true;
-    }catch(e){ return false; }
-  })();
-
-  function saveName(name){
-    if(!storageOK) return;
-    try{ localStorage.setItem(STORAGE_KEY, name); }catch(e){}
-  }
-  function readName(){
-    if(!storageOK) return null;
-    try{ return localStorage.getItem(STORAGE_KEY); }catch(e){ return null; }
-  }
-  function clearName(){
-    if(!storageOK) return;
-    try{ localStorage.removeItem(STORAGE_KEY); }catch(e){}
-  }
 
   /* =========================================================
      Toast
@@ -526,68 +400,13 @@ footer p{ color:var(--ink-2); font-size:.78rem; margin:4px 0; }
   /* =========================================================
      Screen management
   ========================================================= */
-  var screenEntry = document.getElementById("screen-entry");
-  var screenWelcome = document.getElementById("screen-welcome");
   var appMain = document.getElementById("app-main");
 
-  function goToWelcome(name){
-    screenEntry.classList.add("hidden");
-    screenWelcome.classList.remove("hidden");
-    document.getElementById("welcome-name").textContent = name;
-    requestAnimationFrame(function(){
-      requestAnimationFrame(function(){
-        document.getElementById("welcome-card").classList.add("show");
-      });
-    });
-  }
-
-  function goToApp(){
-    screenWelcome.classList.add("hidden");
-    screenEntry.classList.add("hidden");
-    appMain.classList.remove("hidden");
-    var heroTitle = document.getElementById("hero-title");
-    requestAnimationFrame(function(){
-      heroTitle.classList.add("enter");
-    });
-    initScrollReveal();
-  }
-
   /* =========================================================
-     Name entry form
+     Boot: load straight into the app
   ========================================================= */
-  var entryForm = document.getElementById("entry-form");
-  var nameInput = document.getElementById("name-input");
-  var nameError = document.getElementById("name-error");
-
-  entryForm.addEventListener("submit", function(e){
-    e.preventDefault();
-    var val = nameInput.value.trim();
-    if(!val){
-      nameError.textContent = "নাম ছাড়া তো এগোনো যাবে না, একটা নাম লেখো!";
-      nameInput.focus();
-      return;
-    }
-    nameError.textContent = "";
-    saveName(val);
-    goToWelcome(val);
-  });
-
-  nameInput.addEventListener("input", function(){
-    if(nameError.textContent) nameError.textContent = "";
-  });
-
-  document.getElementById("welcome-continue").addEventListener("click", goToApp);
-
-  /* =========================================================
-     Boot: skip entry if a name is already saved
-  ========================================================= */
-  var existingName = readName();
-  if(existingName){
-    screenEntry.classList.add("hidden");
-    appMain.classList.remove("hidden");
-    document.getElementById("hero-title").classList.add("enter");
-    initScrollReveal();
-  }
+  document.getElementById("hero-title").classList.add("enter");
+  initScrollReveal();
 
   /* =========================================================
      Nav: active section + smooth scroll
@@ -776,44 +595,6 @@ footer p{ color:var(--ink-2); font-size:.78rem; margin:4px 0; }
     }, 200);
     fireConfetti();
     showToast("রিপ্লে হয়ে গেল! আবার মজা শুরু 🎊");
-  });
-
-  /* =========================================================
-     Reset name flow (custom confirm modal, not window.confirm)
-  ========================================================= */
-  var modal = document.getElementById("confirm-modal");
-  var resetLink = document.getElementById("reset-link");
-  var confirmCancel = document.getElementById("confirm-cancel");
-  var confirmOk = document.getElementById("confirm-ok");
-
-  function openModal(){
-    modal.classList.add("show");
-    confirmOk.focus();
-    document.addEventListener("keydown", onModalKeydown);
-  }
-  function closeModal(){
-    modal.classList.remove("show");
-    document.removeEventListener("keydown", onModalKeydown);
-    resetLink.focus();
-  }
-  function onModalKeydown(e){
-    if(e.key === "Escape") closeModal();
-  }
-
-  resetLink.addEventListener("click", openModal);
-  confirmCancel.addEventListener("click", closeModal);
-  modal.addEventListener("click", function(e){ if(e.target === modal) closeModal(); });
-
-  confirmOk.addEventListener("click", function(){
-    clearName();
-    closeModal();
-    appMain.classList.add("hidden");
-    screenWelcome.classList.add("hidden");
-    document.getElementById("welcome-card").classList.remove("show");
-    nameInput.value = "";
-    screenEntry.classList.remove("hidden");
-    showToast("নাম রিসেট হয়ে গেছে।");
-    nameInput.focus();
   });
 
 })();
